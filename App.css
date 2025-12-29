@@ -1,0 +1,268 @@
+:root {
+  --bg-main: #f8fafc;
+  --card-white: #ffffff;
+  --accent: #6366f1;
+  --text-dark: #1e293b;
+  --text-soft: #64748b;
+  --border-light: #e2e8f0;
+  --radius-lg: 24px;
+  --radius-md: 12px;
+  --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.04),
+    0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+  --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-dark);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: radial-gradient(
+      at 0% 0%,
+      rgba(99, 102, 241, 0.05) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.05) 0px, transparent 50%);
+}
+
+.app {
+  width: 100%;
+  max-width: 800px;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* Typography */
+h1 {
+  font-weight: 800;
+  font-size: 2.2rem;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #1e293b 0%, #6366f1 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Preview Area: The Crown Jewel */
+.preview {
+  width: 100%;
+  height: 280px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  border: 8px solid var(--card-white);
+  transition: var(--transition);
+  position: relative;
+}
+
+.preview:hover {
+  transform: scale(1.01) translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Layout Grid */
+.sliders,
+.values,
+.tools {
+  background: var(--card-white);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Custom Minimal Sliders */
+.sliders label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: space-between;
+}
+
+input[type="range"] {
+  appearance: none;
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  outline: none;
+  transition: var(--transition);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.2);
+  background: var(--accent);
+}
+
+/* High-End Buttons */
+button {
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background: var(--card-white);
+  color: var(--text-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+button:hover {
+  background: #f8fafc;
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0px);
+}
+
+/* Values Section */
+.values {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.values p {
+  font-family: "Fira Code", monospace;
+  font-weight: 500;
+  color: var(--text-dark);
+  background: #f1f5f9;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* History Chips */
+.history {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.colorBox {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 4px solid var(--card-white);
+  box-shadow: var(--shadow-soft);
+}
+
+.colorBox:hover {
+  transform: scale(1.15) rotate(8deg);
+  box-shadow: var(--shadow-hover);
+  z-index: 2;
+}
+
+/* Tool Toggles */
+.tools {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+input[type="color"] {
+  border: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background: none;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  margin-top: 2rem;
+  padding: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+/* Animation for the whole App */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app {
+  animation: fadeIn 0.8s ease-out;
+}
+/* Update only this part in your app.css */
+
+.values {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  ); /* Makes boxes wrap into rows automatically */
+  gap: 1.5rem;
+  background: var(--card-white);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-soft);
+}
+
+.values p {
+  font-family: "Fira Code", monospace;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  background: #f1f5f9;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  margin: 0;
+  display: flex;
+  justify-content: space-between; /* Pushes Copy button to the right */
+  align-items: center;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.values p:hover {
+  border-color: var(--accent);
+  background: #fff;
+  transform: translateY(-2px);
+}
+
+.values strong {
+  color: var(--accent);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
