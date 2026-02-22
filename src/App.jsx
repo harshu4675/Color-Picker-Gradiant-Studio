@@ -41,22 +41,17 @@ const colorNames = {
   "#DDA0DD": "Plum",
   "#B0E0E6": "Powder Blue",
   "#BC8F8F": "Rosy Brown",
-  "#4169E1": "Royal Blue",
-  "#8B4513": "Saddle Brown",
   "#FA8072": "Salmon",
   "#F4A460": "Sandy Brown",
-  "#2E8B57": "Sea Green",
   "#FFF5EE": "Seashell",
   "#A0522D": "Sienna",
   "#87CEEB": "Sky Blue",
-  "#6A5ACD": "Slate Blue",
   "#708090": "Slate Gray",
   "#FFFAFA": "Snow",
   "#00FF7F": "Spring Green",
   "#4682B4": "Steel Blue",
   "#D2B48C": "Tan",
   "#D8BFD8": "Thistle",
-  "#FF6347": "Tomato",
   "#40E0D0": "Turquoise",
   "#EE82EE": "Violet",
   "#F5DEB3": "Wheat",
@@ -146,9 +141,6 @@ export default function App() {
 
   // Hex Input
   const [hexInput, setHexInput] = useState("");
-
-  // Search
-  const [searchQuery, setSearchQuery] = useState("");
 
   // === Calculations ===
   const rgb = `rgb(${red}, ${green}, ${blue})`;
@@ -508,7 +500,15 @@ export default function App() {
     };
 
     return cssTemplates[cssProperty] || cssTemplates.background;
-  }, [hex, rgba, isGradient, getGradientCSS, cssProperty, textColor]);
+  }, [
+    hex,
+    rgba,
+    isGradient,
+    getGradientCSS,
+    cssProperty,
+    textColor,
+    getShades,
+  ]);
 
   // Extract colors from image
   const extractColorsFromImage = (e) => {
@@ -558,7 +558,7 @@ export default function App() {
       setHistory((prev) => [hex, ...prev.slice(0, 19)]);
       setHistoryIndex(-1);
     }
-  }, [hex]);
+  }, [hex, history]);
 
   useEffect(() => {
     localStorage.setItem("colorFavorites", JSON.stringify(favorites));
@@ -710,9 +710,10 @@ export default function App() {
 
   const addGradientStop = () => {
     if (gradientStops.length < 5) {
+      const maxPos = Math.max(...gradientStops.map((s) => s.position));
       setGradientStops((prev) => [
         ...prev,
-        { color: hex, position: Math.min(...prev.map((s) => s.position)) + 50 },
+        { color: hex, position: Math.min(maxPos + 20, 100) },
       ]);
     }
   };
@@ -1228,6 +1229,15 @@ export default function App() {
                         )
                       }
                     />
+                    <span>{stop.position}%</span>
+                    {gradientStops.length > 2 && (
+                      <button
+                        className="remove-stop"
+                        onClick={() => removeGradientStop(index)}
+                      >
+                        ✕
+                      </button>
+                    )}
                     <input
                       type="range"
                       min="0"
@@ -1241,15 +1251,6 @@ export default function App() {
                         )
                       }
                     />
-                    <span>{stop.position}%</span>
-                    {gradientStops.length > 2 && (
-                      <button
-                        className="remove-stop"
-                        onClick={() => removeGradientStop(index)}
-                      >
-                        ✕
-                      </button>
-                    )}
                   </div>
                 ))}
               </div>
